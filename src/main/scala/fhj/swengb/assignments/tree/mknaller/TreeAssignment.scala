@@ -1,4 +1,4 @@
-package fhj.swengb.assignments.tree.rladstaetter
+package fhj.swengb.assignments.tree.mknaller
 
 import javafx.scene.paint.Color
 
@@ -41,6 +41,10 @@ object Graph {
     */
   def traverse[A, B](tree: Tree[A])(convert: A => B): Seq[B] = {
   ???
+    // bekommt einen Baum von einem beliebigen Typ (Bilder, GitHubUsern, Projekten aber bei uns L2D)
+    // A und B sind beliebig
+    // convert verwandelt A zu B - muss an alle Elemente des Baums A angewandt werden
+    // wie haben wir die Liste dekunstruiert? (Null und Cons)
   }
 
   /**
@@ -78,7 +82,7 @@ object MathUtil {
     * @return
     */
   def round(value: Double): Double = {
-    ???
+    Math.round(value*1000.0)/1000.0;
   }
 
   /**
@@ -109,6 +113,7 @@ object L2D {
     */
   def apply(start: Pt2D, angle: AngleInDegrees, length: Double, color: Color): L2D = {
     ???
+    // vektor addition - constructor "case class L2D" muss aufgerufen werden
   }
 
 
