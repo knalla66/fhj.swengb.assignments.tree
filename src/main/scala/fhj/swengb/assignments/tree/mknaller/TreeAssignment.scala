@@ -39,8 +39,11 @@ object Graph {
     * @param convert a converter function
     * @return
     */
-  def traverse[A, B](tree: Tree[A])(convert: A => B): Seq[B] = {
-  ???
+  //def traverse[A, B](tree: Tree[A])(convert: A => B): Seq[B] = tree match{
+  def traverse[A, B](tree: Tree[A])(convert: A => B): Seq[B] = tree match{
+    case Node(value) => Seq(convert(value))
+    case Branch(left, right) => traverse(left)(convert) ++ traverse(right)(convert)
+
     // bekommt einen Baum von einem beliebigen Typ (Bilder, GitHubUsern, Projekten aber bei uns L2D)
     // A und B sind beliebig
     // convert verwandelt A zu B - muss an alle Elemente des Baums A angewandt werden
@@ -92,7 +95,7 @@ object MathUtil {
     * @return
     */
   def toRadiants(angle: AngleInDegrees): AngleInRadiants = {
-   ???
+   angle.toRadians
   }
 }
 
