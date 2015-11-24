@@ -39,11 +39,18 @@ object Graph {
     * @param convert a converter function
     * @return
     */
-  //def traverse[A, B](tree: Tree[A])(convert: A => B): Seq[B] = tree match{
   def traverse[A, B](tree: Tree[A])(convert: A => B): Seq[B] = tree match{
     case Node(value) => Seq(convert(value))
     case Branch(left, right) => traverse(left)(convert) ++ traverse(right)(convert)
 
+    /*
+    // tail_recursive (der Weg zurück wird mit dem acc übersprungen da dieser immer übergeben wird)
+    def getSeqValueRec (tree: Tree[A], acc: Seq[B])(convert: A => B):Seq[B] = tree match{
+      case Node(value) => acc :+ convert(value)
+      case Branch(left,right) => getSeqValueRec(left, acc)(convert) ++ acc ++ getSeqValueRec(right, acc)(convert)
+    }
+    getSeqValueRec(tree, acc = Nil)(convert)
+    */
     // bekommt einen Baum von einem beliebigen Typ (Bilder, GitHubUsern, Projekten aber bei uns L2D)
     // A und B sind beliebig
     // convert verwandelt A zu B - muss an alle Elemente des Baums A angewandt werden
@@ -115,8 +122,15 @@ object L2D {
     * @return
     */
   def apply(start: Pt2D, angle: AngleInDegrees, length: Double, color: Color): L2D = {
-    ???
+    val endx = round(length * Math.cos(toRadiants(angle)))+start.x
+    val endy = round(length * Math.sin(toRadiants(angle)))+start.y
+
+    val endPoint = Pt2D(endx, endy)
+    L2D(start, endPoint, color)
     // vektor addition - constructor "case class L2D" muss aufgerufen werden
+    // Berechnung durch den startpunkt und den Winkel (in radiant umwandeln) wird der endpunkt berechnet und gerundet
+    // nicht vergessen +start.x hinzugeben, weil sonst immer bei start 0 angefangen wird! das x und y kommt von Pt2D (CMD + click)
+    // L2D macht aus den start und den endPoint die farbige Linie
   }
 
 
