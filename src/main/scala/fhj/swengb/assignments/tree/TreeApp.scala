@@ -1,5 +1,6 @@
 package fhj.swengb.assignments.tree
 
+
 import java.net.URL
 import java.util.ResourceBundle
 import javafx.application.Application
