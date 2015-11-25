@@ -82,11 +82,16 @@ object Graph {
     def createTreeGraph(point : L2D, counter : Int):Tree[L2D] = counter match {
       case size1 if treeDepth==counter => Branch(Node(point),Branch(Node(point.left(factor, angle, colorMap(counter-1))),Node(point.right(factor, angle, colorMap(counter-1)))))
       case _ => Branch(Node(point), Branch(createTreeGraph(point.left(factor, angle, colorMap(counter-1)), counter+1), createTreeGraph(point.right(factor, angle, colorMap(counter-1)), counter+1)))
+      // Bei size1 wird zuerst wieder ein Branch mit Node(point) aufgerufen, das heißt die L2D Verbindung und weiters
+      // noch den Branch mit den linken und rechten Flügel angeben, d.h. die L2D Verbindung(point.left) mit den den richtigen parametern
+      // Default: wird wieder unser root node erstellt und gleich in den Branch mit linken und rechten flügel
+      // Jedoch wissen wir das es nicht nur einmal aufgerufen wird  --> rekursiv die Function createTreeGraph aufrufen,
+        // Parameter übergeben und den counter erhöhen nicht vergessen.
 
     }
 
     val counter = 1
-    val startConnection = L2D(start,initialAngle,length,colorMap(counter-1))
+    val startConnection = L2D.apply(start,initialAngle,length,colorMap(counter-1))
     // Die apply Function des object L2D wird mit den parametern aufgerufen und der EndPoint konstruiert.
     // Die apply function ruft danach L2D case class mit start, end, color auf
 
@@ -94,6 +99,7 @@ object Graph {
       case root if(treeDepth==0) => Node(startConnection)
       case tree => createTreeGraph(startConnection,counter)
     }
+    // root ist die L2D Verbindung zwischen start und end, für alle anderen eine rekursive function angewandt
 
  }
 
