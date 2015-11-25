@@ -78,7 +78,23 @@ object Graph {
               angle: Double = 45.0,
               colorMap: Map[Int, Color] = Graph.colorMap): Tree[L2D] = {
     assert(treeDepth <= colorMap.size, s"Treedepth higher than color mappings - bailing out ...")
-    ???
+
+    def createTreeGraph(point : L2D, counter : Int):Tree[L2D] = counter match {
+      case size1 if treeDepth==counter => Branch(Node(point),Branch(Node(point.left(factor, angle, colorMap(counter-1))),Node(point.right(factor, angle, colorMap(counter-1)))))
+      case _ => Branch(Node(point), Branch(createTreeGraph(point.left(factor, angle, colorMap(counter-1)), counter+1), createTreeGraph(point.right(factor, angle, colorMap(counter-1)), counter+1)))
+
+    }
+
+    val counter = 1
+    val startConnection = L2D(start,initialAngle,length,colorMap(counter-1))
+    // Die apply Function des object L2D wird mit den parametern aufgerufen und der EndPoint konstruiert.
+    // Die apply function ruft danach L2D case class mit start, end, color auf
+
+    counter match {
+      case root if(treeDepth==0) => Node(startConnection)
+      case tree => createTreeGraph(startConnection,counter)
+    }
+
  }
 
 }
