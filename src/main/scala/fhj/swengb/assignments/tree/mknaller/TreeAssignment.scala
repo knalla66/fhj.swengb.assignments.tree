@@ -87,6 +87,7 @@ object Graph {
       // Default: wird wieder unser root node erstellt und gleich in den Branch mit linken und rechten flügel
       // Jedoch wissen wir das es nicht nur einmal aufgerufen wird  --> rekursiv die Function createTreeGraph aufrufen,
         // Parameter übergeben und den counter erhöhen nicht vergessen.
+      // colorMap(counter-1) weil val colorMap von 0 beginnt.
 
     }
 
